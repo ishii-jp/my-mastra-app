@@ -17,27 +17,11 @@ export const mastra = new Mastra({
     level: 'info',
   }),
   server: {
-    middleware: [
-      {
-        path: '*',
-        handler: async (c, next) => {
-          c.header('Access-Control-Allow-Origin', '*');
-          c.header(
-            'Access-Control-Allow-Methods',
-            'GET, POST, PUT, DELETE, OPTIONS',
-          );
-          // c.header(
-          //   'Access-Control-Allow-Headers',
-          //   'Content-Type, Authorization',
-          // );
-      
-          if (c.req.method === 'OPTIONS') {
-            return new Response(null, { status: 204 });
-          }
-      
-          await next();
-        },
-      }
-    ]
+    cors: {
+      origin: ["http://localhost:5173"],
+      allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+      // allowHeaders: ['Content-Type', 'Authorization', 'x-copilotkit-runtime-client-gql-version'],
+      credentials: true,
+    },
   }
 });
