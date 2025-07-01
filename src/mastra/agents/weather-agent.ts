@@ -18,7 +18,7 @@ export const weatherAgent = new Agent({
 
       Use the weatherTool to fetch current weather data.
 `,
-  model: anthropic('claude-3-5-sonnet-20241022'),
+  model: anthropic('claude-4-opus-20250514'),
   tools: { weatherTool },
   memory: new Memory({
     storage: new LibSQLStore({

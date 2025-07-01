@@ -3,7 +3,7 @@ import { Agent } from '@mastra/core/agent';
 import { createStep, createWorkflow } from '@mastra/core/workflows';
 import { z } from 'zod';
 
-const llm = anthropic('claude-3-5-sonnet-20241022');
+const llm = anthropic('claude-4-opus-20250514');
 
 const agent = new Agent({
   name: 'Weather Agent',
