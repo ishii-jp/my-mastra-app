@@ -26,10 +26,10 @@ export const mastra = new Mastra({
             'Access-Control-Allow-Methods',
             'GET, POST, PUT, DELETE, OPTIONS',
           );
-          c.header(
-            'Access-Control-Allow-Headers',
-            'Content-Type, Authorization',
-          );
+          // c.header(
+          //   'Access-Control-Allow-Headers',
+          //   'Content-Type, Authorization',
+          // );
       
           if (c.req.method === 'OPTIONS') {
             return new Response(null, { status: 204 });
