@@ -16,4 +16,28 @@ export const mastra = new Mastra({
     name: 'Mastra',
     level: 'info',
   }),
+  server: {
+    middleware: [
+      {
+        path: '*',
+        handler: async (c, next) => {
+          c.header('Access-Control-Allow-Origin', '*');
+          c.header(
+            'Access-Control-Allow-Methods',
+            'GET, POST, PUT, DELETE, OPTIONS',
+          );
+          c.header(
+            'Access-Control-Allow-Headers',
+            'Content-Type, Authorization',
+          );
+      
+          if (c.req.method === 'OPTIONS') {
+            return new Response(null, { status: 204 });
+          }
+      
+          await next();
+        },
+      }
+    ]
+  }
 });
