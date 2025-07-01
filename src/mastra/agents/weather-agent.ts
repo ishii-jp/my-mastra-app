@@ -2,7 +2,14 @@ import { anthropic } from '@ai-sdk/anthropic';
 import { Agent } from '@mastra/core/agent';
 import { Memory } from '@mastra/memory';
 import { LibSQLStore } from '@mastra/libsql';
+import { SummarizationMetric } from "@mastra/evals/llm";
+import {
+  ContentSimilarityMetric,
+  ToneConsistencyMetric,
+} from "@mastra/evals/nlp";
 import { weatherTool } from '../tools/weather-tool';
+
+const model = anthropic('claude-4-opus-20250514')
 
 export const weatherAgent = new Agent({
   name: 'Weather Agent',
@@ -18,11 +25,16 @@ export const weatherAgent = new Agent({
 
       Use the weatherTool to fetch current weather data.
 `,
-  model: anthropic('claude-4-opus-20250514'),
+  model,
   tools: { weatherTool },
   memory: new Memory({
     storage: new LibSQLStore({
       url: 'file:../mastra.db', // path is relative to the .mastra/output directory
     }),
   }),
+  evals: {
+    summarization: new SummarizationMetric(model),
+    contentSimilarity: new ContentSimilarityMetric(),
+    tone: new ToneConsistencyMetric(),
+  },
 });
